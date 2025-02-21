@@ -26,17 +26,18 @@ def draw(DH, deg=False):
     ax = plt.figure().add_subplot(projection='3d')
     ax.plot(r[0], r[1], r[2], 'k')
     ax.axis('equal')
-    # Plot global coordinate system
+    # Plot global coordinate frame
     num_joints = np.shape(DH)[0]
     ax.plot([r[0, 0], r[0, 0] + 1], [r[1, 0], r[1, 0]], [r[2, 0], r[2, 0]], 'r', linewidth=5)
     ax.plot([r[0, 0], r[0, 0]], [r[1, 0], r[1, 0] + 1], [r[2, 0], r[2, 0]], 'g', linewidth=5)
     ax.plot([r[0, 0], r[0, 0]], [r[1, 0], r[1, 0]], [r[2, 0], r[2, 0] + 1], 'b', linewidth=5)
-    # Plot joint coordinate systems
+    # Plot joint coordinate frame
     for i in range(1, num_joints+1):
+        # Calculate local coordinate fram from rotation matrix
         x = R[i-1] @ np.array([[1], [0], [0]])
         y = R[i-1] @ np.array([[0], [1], [0]])
         z = R[i-1] @ np.array([[0], [0], [1]])
-        
+        # Plot local coordinate frame
         ax.plot([r[0, i], r[0, i] + x[0, 0]], [r[1, i], r[1, i] + x[1, 0]], [r[2, i], r[2, i] + x[2, 0]], 'r', linewidth=5)
         ax.plot([r[0, i], r[0, i] + y[0, 0]], [r[1, i], r[1, i] + y[1, 0]], [r[2, i], r[2, i] + y[2, 0]], 'g', linewidth=5)
         ax.plot([r[0, i], r[0, i] + z[0, 0]], [r[1, i], r[1, i] + z[1, 0]], [r[2, i], r[2, i] + z[2, 0]], 'b', linewidth=5)
