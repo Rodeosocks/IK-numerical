@@ -23,11 +23,20 @@ def draw(DH, deg=False, arrows=False):
     # Calculate 0Ri and ri
     R = calc_R.calc_R(DH)
     r = forward_kinematics.forward_kinematics(DH, R)
-    # Plot joint locations
+    # Set plotting style preferences
     plt.style.use('seaborn-v0_8-ticks')
     ax = plt.figure().add_subplot(projection='3d')
+    ax.xaxis.set_ticks_position('none')
+    ax.yaxis.set_ticks_position('none')
+    ax.zaxis.set_ticks_position('none')
+    plt.figtext(0.18, 0.05, 'x', color='r', fontweight='bold')
+    plt.figtext(0.195, 0.05, 'y', color='g', fontweight='bold')
+    plt.figtext(0.21, 0.05, 'z', color='b', fontweight='bold')
+    plt.figtext(0.05, 0.05, 'Axis Colors:', fontweight='bold')
+    # Plot joint locations
     ax.plot(r[0], r[1], r[2], 'k')
     ax.axis('equal')
+    # Plot coordinate frames
     num_joints = np.shape(DH)[0]
     if arrows == True:
         # Plot global coordinate frame
