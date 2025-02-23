@@ -28,6 +28,7 @@ def draw(DH, deg=False, arrows=False, fig=None):
         ax = plt.figure().add_subplot(projection='3d')
     else:
         ax = fig.add_subplot(projection='3d')
+    plt.subplots_adjust(left=0, bottom=0, right=1, top=1)
     plt.style.use('seaborn-v0_8-ticks')
     ax.xaxis.set_ticks_position('none')
     ax.yaxis.set_ticks_position('none')
