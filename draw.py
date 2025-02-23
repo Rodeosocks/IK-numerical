@@ -12,11 +12,11 @@ import forward_kinematics
 
 # Given a system's DH parameters, plot the orientation
 # DH params must be in the order d, a, alpha, theta
-# DH params should be in a 2d numpy array, each row being a joint
+# DH params should be in a 2d numpy array or 2d list, each row being a joint
 # alpha and theta should be in radians, unless specified
-def draw(DH, deg=False, arrows=False):
+def draw(DH, deg=False, arrows=False, fig=None):
     # Convert to floats if not already
-    DH = DH / 1.0
+    DH = np.array(DH, dtype=float)
     # Convert to radians if not already
     if deg == True:
         DH[:, 2:] = (np.pi/180)*DH[:, 2:]
@@ -24,8 +24,11 @@ def draw(DH, deg=False, arrows=False):
     R = calc_R.calc_R(DH)
     r = forward_kinematics.forward_kinematics(DH, R)
     # Set plotting style preferences
+    if fig == None:
+        ax = plt.figure().add_subplot(projection='3d')
+    else:
+        ax = fig.add_subplot(projection='3d')
     plt.style.use('seaborn-v0_8-ticks')
-    ax = plt.figure().add_subplot(projection='3d')
     ax.xaxis.set_ticks_position('none')
     ax.yaxis.set_ticks_position('none')
     ax.zaxis.set_ticks_position('none')
